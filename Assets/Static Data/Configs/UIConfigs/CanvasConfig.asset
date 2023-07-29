@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e538466e67954e438dd8fe6dfed00815, type: 3}
+  m_Name: CanvasConfig
+  m_EditorClassIdentifier: 
+  <CanvasPrefab>k__BackingField: {fileID: 3880040069559297474, guid: 8e3d2e11e3fdae045b0b2591be65be98, type: 3}
+  <EventSystem>k__BackingField: {fileID: 1841323537344166536, guid: 589f915b1c813a8448dea6b0df97f7be, type: 3}

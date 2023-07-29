@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Joystick
+  m_EditorClassIdentifier: 
+  m_GroupName: Joystick
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 98cad8b6ae77bcc46a0722472fcc43fd
+  m_SerializeEntries:
+  - m_GUID: 30911868c72a2d445a248215801cbb29
+    m_Address: Assets/Bundles/Player/Joystick
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: dd618199b3c54734097d3dd77f5c0f76, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 64efec186ea48a34fb4c084654fe3501, type: 2}
+    - {fileID: 11400000, guid: 61528694dc26e1c4f9d2d247adf7dfa6, type: 2}
