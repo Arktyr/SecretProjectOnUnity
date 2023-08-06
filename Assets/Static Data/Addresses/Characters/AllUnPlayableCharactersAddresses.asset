@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb7f399fae504e359c436bb66e0b0333, type: 3}
   m_Name: AllUnPlayableCharactersAddresses
   m_EditorClassIdentifier: 
+  <_commonEnemyAddresses>k__BackingField: {fileID: 11400000, guid: 4ec58fc47f5726f459c7bd373994b7bf, type: 2}

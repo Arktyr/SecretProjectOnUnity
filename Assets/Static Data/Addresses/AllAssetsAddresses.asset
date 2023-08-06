@@ -15,3 +15,8 @@ MonoBehaviour:
   <PlayerAssetsAddresses>k__BackingField: {fileID: 11400000, guid: 81ba338e7acc32640bd3de9311d4adb5, type: 2}
   <AllCharacterAddresses>k__BackingField: {fileID: 11400000, guid: b6c8448db928f9041a39979afd199b6a, type: 2}
   <AllUIAssetsAddresses>k__BackingField: {fileID: 11400000, guid: 5064eac2c979884449e2f63811638f1d, type: 2}
+  <ColliderWatcher>k__BackingField:
+    m_AssetGUID: ee9502aa581f23f49a2f1c365af99be7
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

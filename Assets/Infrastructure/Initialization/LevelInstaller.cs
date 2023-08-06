@@ -1,10 +1,12 @@
 ﻿using Infrastructure.Creation;
 using Infrastructure.Factories.AbilitiesFactory;
 using Infrastructure.Factories.CharactersFactory;
+using Infrastructure.Factories.EnemiesFactory;
 using Infrastructure.Factories.PlayerFactories;
 using Infrastructure.Factories.UIFactories;
 using Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine;
 using Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine.States;
+using Infrastructure.Gameplay.Spawner;
 using Zenject;
 
 namespace Infrastructure.Initialization
@@ -15,8 +17,15 @@ namespace Infrastructure.Initialization
         {
             BindFabrics();
             BindPlayerStateMachine();
+            BindServices();
         }
-        
+
+        private void BindServices()
+        {
+            Container.Bind<IEnemyPool>().To<EnemyPool>().AsSingle();
+            Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle();
+        }
+
         private void BindFabrics()
         {
             Container.BindInterfacesAndSelfTo<LevelObjectFactory>().AsSingle();
@@ -25,6 +34,7 @@ namespace Infrastructure.Initialization
             Container.Bind<IPlayerStateMachineFactory>().To<PlayerStateMachineFactory>().AsSingle();
             Container.Bind<ICharacterFactory>().To<CharacterFactory>().AsSingle();
             Container.Bind<IAbilityFactory>().To<AbilityFactory>().AsSingle();
+            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
 
             Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
         }

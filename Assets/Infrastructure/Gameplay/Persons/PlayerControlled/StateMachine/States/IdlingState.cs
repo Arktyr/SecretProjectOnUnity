@@ -4,21 +4,21 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine.States
 {
     public class IdlingState : IPlayerState
     {
-        private PlayerAnimator _playerAnimator;
+        private CharacterAnimator _characterAnimator;
 
-        public void Construct(PlayerAnimator playerAnimator)
+        public void Construct(CharacterAnimator characterAnimator)
         {
-            _playerAnimator = playerAnimator;
+            _characterAnimator = characterAnimator;
         }
         
         public void Exit()
         {
-            _playerAnimator.SetIdleAnimation(false);
+            _characterAnimator.SetIdleAnimation(false);
         }
 
         public void Enter()
         {
-            _playerAnimator.SetIdleAnimation(true);
+            _characterAnimator.SetIdleAnimation(true);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Infrastructure.CodeBase.Services.InputService.Base;
 using Infrastructure.CodeBase.Services.Update;
 using Infrastructure.Gameplay.Persons.AnyCharacter;
+using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
 
@@ -14,7 +15,7 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine.States
         private readonly IInputService _inputService;
 
         private ICharacterMovement _characterMovement;
-        private PlayerAnimator _playerAnimator;
+        private CharacterAnimator _characterAnimator;
 
         public RunState(IUpdaterService updaterService, IInputService inputService)
         {
@@ -25,33 +26,35 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine.States
         public void Construct(
             IPlayerStateMachine playerStateMachine,
             ICharacterMovement characterMovement,
-            PlayerAnimator playerAnimator)
+            CharacterAnimator characterAnimator)
         {
             _playerStateMachine = playerStateMachine;
             _characterMovement = characterMovement;
-            _playerAnimator = playerAnimator;
+            _characterAnimator = characterAnimator;
         }
         
         
         public void Exit()
         {
-            _updaterService.Update -= Update;
-            _playerAnimator.SetRunAnimation(false);
+            _characterAnimator.SetRunAnimation(false);
+            _updaterService.FixedUpdate -= Update;
         }
 
         public void Enter()
         {
-            _updaterService.Update += Update;
-            _playerAnimator.SetRunAnimation(true);
+            _characterAnimator.SetRunAnimation(true);
+            _updaterService.FixedUpdate += Update;
         }
 
         private void Update(float time)
         {
             Vector2 direction = _inputService.PlayerMovementInput.Input();
+
+            Vector3 currentDirection = new Vector3(direction.x, 0, direction.y);
             
-            _characterMovement.Move(direction);
+            _characterMovement.Move(currentDirection);
             
-            _characterMovement.Rotate(direction);
+            _characterMovement.Rotate(currentDirection);
             
             if (direction.magnitude == 0) 
                 _playerStateMachine.Enter<IdlingState>();

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3560b0b1b6cc406db17525f7fc2c4555, type: 3}
   m_Name: SceneData
   m_EditorClassIdentifier: 
-  <BootstrapScene>k__BackingField: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
-  <LevelScene>k__BackingField: {fileID: 102900000, guid: 0f191715290a2b8409ba1ed2c8d9bea3, type: 3}
+  <AllEnemiesOnLevelData>k__BackingField: {fileID: 11400000, guid: 80394fa0b869e6a4aa4459c28e1754d6, type: 2}
   <MapSize>k__BackingField: {x: 25, y: 0, z: 25}
+  <EnemySpawnerConfig>k__BackingField: {fileID: 11400000, guid: 8100e784b89d07440b62999e96062709, type: 2}

@@ -13,7 +13,7 @@ namespace Infrastructure.CodeBase.Services.InputService.Mobile
         private readonly IUpdaterService _updaterService;
         
         private FixedJoystick _fixedJoystick;
-        
+
         public PlayerMovementInput(IUpdaterService updaterService, IInputWatcher inputWatcher)
         {
             _updaterService = updaterService;

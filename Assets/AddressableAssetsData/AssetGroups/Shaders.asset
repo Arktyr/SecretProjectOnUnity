@@ -16,22 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 39cea556d0195ac4ab19068221c58d09
-  m_SerializeEntries:
-  - m_GUID: 7cd5de0b884b14f88ab763ef465e1799
-    m_Address: Assets/Packages/Simple Toon/Shaders/STDefault.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 128c5f1edaefa4c4fb3f9f7a4615edb2
-    m_Address: Assets/Packages/Simple Toon/Shaders/STOutline.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 481153b840b6e408da95e6afbe176397
-    m_Address: Assets/Packages/Simple Toon/Shaders/STTransparent.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: dd618199b3c54734097d3dd77f5c0f76, type: 2}
   m_SchemaSet:

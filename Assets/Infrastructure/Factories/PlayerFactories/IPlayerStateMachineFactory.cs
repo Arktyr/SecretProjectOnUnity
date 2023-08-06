@@ -7,7 +7,7 @@ namespace Infrastructure.Factories.PlayerFactories
 {
     public interface IPlayerStateMachineFactory
     {
-        IPlayerStateMachine Construct(PlayerAnimator playerAnimator,
+        IPlayerStateMachine Construct(CharacterAnimator characterAnimator,
             ICharacterMovement characterMovement);
     }
 }

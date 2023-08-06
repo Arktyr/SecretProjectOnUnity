@@ -9,6 +9,7 @@ namespace Infrastructure.GameFSM
         public LevelState(IStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
+        
         }
 
         public void Exit()
@@ -18,6 +19,7 @@ namespace Infrastructure.GameFSM
 
         public void Enter()
         {
+            
         }
     }
 }

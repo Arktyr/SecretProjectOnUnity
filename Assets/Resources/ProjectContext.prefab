@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14714a678ad7db04a95e3059184940e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneData: {fileID: 11400000, guid: 1dca645f041a1124a8488d0779770ab0, type: 2}
+  levelData: {fileID: 11400000, guid: 1dca645f041a1124a8488d0779770ab0, type: 2}
   _playerData: {fileID: 11400000, guid: dfde4ca1fd3a96c498491f73120e0ea1, type: 2}
   _uiData: {fileID: 11400000, guid: bc219c7817e2f2b448f993978acb9fce, type: 2}
   _allAssetsAddresses: {fileID: 11400000, guid: 7250a1d07b619994fa64f020ee19217b, type: 2}

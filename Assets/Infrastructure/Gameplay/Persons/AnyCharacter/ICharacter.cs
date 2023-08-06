@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Infrastructure.Gameplay.Persons.AnyCharacter
 {
     public interface ICharacter
@@ -5,5 +7,11 @@ namespace Infrastructure.Gameplay.Persons.AnyCharacter
         public ICharacterMovement CharacterMovement { get; } 
             
         public ICharacterInjuring CharacterInjuring { get; }
+        
+        public ICharacterRecovering CharacterRecovering { get; }
+        
+        public ICharacterAbility CharacterAbility { get;}
+        
+        public GameObject CharacterPrefab { get; }
     }
 }

@@ -12,8 +12,6 @@ namespace Infrastructure.Factories.PlayerFactories
         
         private readonly RunState _runState;
         private readonly IdlingState _idlingState;
-    
-        
         
         public PlayerStateMachineFactory(RunState runState,
             IdlingState idlingState,
@@ -24,14 +22,14 @@ namespace Infrastructure.Factories.PlayerFactories
             _idlingState = idlingState;
         }
 
-        public IPlayerStateMachine Construct(PlayerAnimator playerAnimator,
+        public IPlayerStateMachine Construct(CharacterAnimator characterAnimator,
             ICharacterMovement characterMovement)
 
         {
-            _runState.Construct(_playerStateMachine, characterMovement, playerAnimator);
+            _runState.Construct(_playerStateMachine, characterMovement, characterAnimator);
             _playerStateMachine.AddState(_runState);
 
-            _idlingState.Construct(playerAnimator);
+            _idlingState.Construct(characterAnimator);
             _playerStateMachine.AddState(_idlingState);
             
             _playerStateMachine.Enter<IdlingState>();

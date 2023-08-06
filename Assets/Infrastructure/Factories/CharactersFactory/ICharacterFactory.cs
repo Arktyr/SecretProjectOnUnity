@@ -1,4 +1,5 @@
-﻿using Infrastructure.Gameplay.Persons.AnyCharacter;
+﻿using Cysharp.Threading.Tasks;
+using Infrastructure.Gameplay.Persons.AnyCharacter;
 using Infrastructure.Static_Data.Data;
 using UnityEngine;
 

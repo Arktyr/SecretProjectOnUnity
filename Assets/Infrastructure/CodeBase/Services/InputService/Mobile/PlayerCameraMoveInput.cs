@@ -14,6 +14,8 @@ namespace Infrastructure.CodeBase.Services.InputService.Mobile
         private readonly IUpdaterService _updaterService;
         private readonly IInputWatcher _inputWatcher;
 
+        private Vector2 _lastDirection;
+
         public PlayerCameraMoveInput(PlayerInput playerInput, IUpdaterService updaterService, IInputWatcher inputWatcher)
         {
             _playerInput = playerInput;
@@ -26,11 +28,11 @@ namespace Infrastructure.CodeBase.Services.InputService.Mobile
 
         private void MoveEnd()
         {
-            _updaterService.Update -= Move;
+            _updaterService.FixedUpdate -= Move;
             InputCameraMoveEnded?.Invoke();
         }
 
-        private void MoveStart() => _updaterService.Update += Move;
+        private void MoveStart() => _updaterService.FixedUpdate += Move;
 
         private void Move(float time)
         {

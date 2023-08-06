@@ -33,12 +33,12 @@ namespace Infrastructure.CodeBase.Services.InputService.Mobile
         private void ZoomEnd()
         {
             _inputWatcher.SetIsUsesCameraInput(false);
-            _updaterService.Update -= Zoom;
+            _updaterService.FixedUpdate -= Zoom;
         }
 
         private void ZoomStart()
         {
-            if (_inputWatcher.IsUsesMovementInput == false) _updaterService.Update += Zoom;
+            if (_inputWatcher.IsUsesMovementInput == false) _updaterService.FixedUpdate += Zoom;
         }
 
         private void Zoom(float time)

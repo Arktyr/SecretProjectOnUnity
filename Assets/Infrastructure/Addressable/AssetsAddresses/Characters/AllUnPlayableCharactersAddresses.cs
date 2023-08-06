@@ -6,5 +6,7 @@ namespace Infrastructure.Addressable.AssetsAddresses.Characters
         menuName = "Addresses/Characters/AllUnPlayableCharacters")]
     public class AllUnPlayableCharactersAddresses : ScriptableObject
     {
+        [field: SerializeField] public CommonEnemyAddresses _commonEnemyAddresses { get; private set;}
+
     }
 }

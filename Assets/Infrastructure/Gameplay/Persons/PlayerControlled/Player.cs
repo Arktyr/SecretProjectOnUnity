@@ -1,7 +1,8 @@
 ﻿using System;
 using Infrastructure.CodeBase.Services.InputService.Base;
+using Infrastructure.CodeBase.Services.Update;
 using Infrastructure.Gameplay.Persons.AnyCharacter;
-using Infrastructure.Gameplay.Persons.Common.Abilities;
+using Infrastructure.Gameplay.Persons.AnyCharacter.Abilities;
 using Infrastructure.Gameplay.Persons.PlayerControlled.CameraControl;
 using Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine;
 using Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine.States;
@@ -14,23 +15,23 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled
         private readonly IInputService _inputService;
 
         private ICharacter _character;
-        private IAbility _ability;
         private IPlayerStateMachine _stateMachine;
         
         private PlayerCamera _playerCamera;
 
-        public Player(IInputService inputService)
+        private IUpdaterService _updaterService;
+
+        public Player(IInputService inputService, IUpdaterService updaterService)
         {
             _inputService = inputService;
+            _updaterService = updaterService;
         }
         
         public void Construct(ICharacter character,
-            IAbility ability,
             IPlayerStateMachine stateMachine,
             PlayerCamera playerCamera)
         {
             _character = character;
-            _ability = ability;
             _stateMachine = stateMachine;
             _playerCamera = playerCamera;
             
@@ -41,14 +42,22 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled
         {
             _character.CharacterInjuring.Health.Died += Dispose;
             _inputService.PlayerMovementInput.InputHappened += SetRunPlayerState;
-            _inputService.PlayerInput.Ability.Teleport.performed += context => _ability.Cast();
+            _inputService.PlayerInput.Ability.Teleport.performed +=
+                context => _character.CharacterAbility.TryUseSingleAbility<CharacterTeleportForward>();
+
+            _updaterService.FixedUpdate += Attack;
         }
 
         private void UnSubscribeToEventsInServices()
         {
+            _character.CharacterInjuring.Health.Died -= Dispose;
             _inputService.PlayerMovementInput.InputHappened -= SetRunPlayerState;
+          
+            _updaterService.FixedUpdate -= Attack;
         }
-        
+
+        private void Attack(float time) => _character.CharacterAbility.TryUseAllAbilitiesByType(AbilityType.Attack);
+
         private void SetRunPlayerState()
         {
             if (_stateMachine.CurrentState == PlayerStateType.IdlingState) _stateMachine.Enter<RunState>();
@@ -56,9 +65,8 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled
 
         public void Dispose()
         {
-            _character.CharacterInjuring.Health.Died -= Dispose;
-            _playerCamera?.Dispose();
             UnSubscribeToEventsInServices();
+            _playerCamera?.Dispose();
         }
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69e9b87fb54488285d004a3ae24acad, type: 3}
+  m_Name: AllEnemiesOnLevelConfig
+  m_EditorClassIdentifier: 
+  <CommonEnemies>k__BackingField:
+  - {fileID: 11400000, guid: d66f360de5f975145978a0cf259b887b, type: 2}
+  <UncommonEnemies>k__BackingField: []
+  <RareEnemies>k__BackingField: []
+  <UniqueEnemies>k__BackingField: []

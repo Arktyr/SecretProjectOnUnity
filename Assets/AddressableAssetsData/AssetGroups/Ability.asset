@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Ability
+  m_EditorClassIdentifier: 
+  m_GroupName: Ability
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f02b660f654b3b34491ecbafff194622
+  m_SerializeEntries:
+  - m_GUID: ee9502aa581f23f49a2f1c365af99be7
+    m_Address: Assets/Bundles/Ability/CharacterWatcher/CharacterWatcher.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: dd618199b3c54734097d3dd77f5c0f76, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 07ac090d0ff578d4d8796b40b9b71b7c, type: 2}
+    - {fileID: 11400000, guid: a19480c988227564db2c328b419aae95, type: 2}

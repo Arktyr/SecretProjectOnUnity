@@ -2,6 +2,6 @@
 {
     public interface IAbility
     {
-        public void Cast();
+        public void Use();
     }
 }

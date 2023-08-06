@@ -1,4 +1,6 @@
-﻿using Infrastructure.Gameplay.Persons.AnyCharacter;
+﻿using Infrastructure.Factories.AbilitiesFactory;
+using Infrastructure.Gameplay.Persons.AnyCharacter;
+using Infrastructure.Gameplay.Persons.AnyCharacter.Abilities;
 using Infrastructure.Gameplay.Persons.Common.Injuring;
 using Infrastructure.Gameplay.Persons.Common.Movement;
 using Infrastructure.Instatiator;
@@ -9,14 +11,17 @@ namespace Infrastructure.Factories.CharactersFactory
 {
     public class CharacterFactory : ICharacterFactory
     {
-        private IInstantiator _instantiator;
+        private readonly IInstantiator _instantiator;
+        private readonly IAbilityFactory _abilityFactory;
 
-        private CharacterController _characterController;
+        private GameObject _prefab;
+        private Rigidbody _entity;
         private CharacterData _characterData;
-        
-        public CharacterFactory(IInstantiator instantiator)
+        public CharacterFactory(IInstantiator instantiator,
+            IAbilityFactory abilityFactory)
         {
             _instantiator = instantiator;
+            _abilityFactory = abilityFactory;
         }
         
         public ICharacter Create(GameObject characterPrefab, CharacterData characterData)
@@ -25,59 +30,105 @@ namespace Infrastructure.Factories.CharactersFactory
             
             ICharacterMovement characterMovement = CreateCharacterMovement();
 
-            ICharacterInjuring characterInjuring = CreateCharacterInjuring();
+            IHealth health = CreateHealth();
 
-            ICharacter character = CreateCharacter(characterMovement, characterInjuring);
+            ICharacterInjuring characterInjuring = CreateCharacterInjuring(health, characterData.CharacterType);
+
+            ICharacterRecovering characterRecovering = CreateCharacterRecovering(health);
+            
+            CharacterAbility characterAbility = CreateCharacterAbility();
+            
+            ICharacter character = CreateCharacter(characterMovement, characterInjuring, characterRecovering, characterAbility);
+
+            characterAbility.SetAbilities(_abilityFactory.CreateAbilities(character, characterPrefab, characterData));
 
             return character;
+        }
+
+        private CharacterAbility CreateCharacterAbility()
+        {
+            CharacterAbility characterAbility = _instantiator.Instantiate<CharacterAbility>();
+
+            return characterAbility;
+        }
+        
+        private IHealth CreateHealth()
+        {
+            Health health = _instantiator.Instantiate<Health>();
+            
+            health.Construct(_characterData.CharacterStats.Health, _characterData.CharacterStats.MaxHealth);
+
+            return health;
+        }
+
+        private ICharacterRecovering CreateCharacterRecovering(IHealth health)
+        {
+            CharacterRecovering characterRecovering = _instantiator.Instantiate<CharacterRecovering>();
+
+            IHealNotifier healNotifier = _prefab.GetComponent<IHealNotifier>();
+            
+            characterRecovering.Construct(health, healNotifier);
+
+            return characterRecovering;
         }
 
         private ICharacterMovement CreateCharacterMovement()
         {
             CharacterMovement characterMovement = _instantiator.Instantiate<CharacterMovement>();
 
-            HorizontalMovement horizontalMovement = _instantiator.Instantiate<HorizontalMovement>();
+            Movement movement = _instantiator.Instantiate<Movement>();
 
-            HorizontalRotatable horizontalRotatable = _instantiator.Instantiate<HorizontalRotatable>();
+            Rotatable rotatable = _instantiator.Instantiate<Rotatable>();
             
-            horizontalMovement.Construct(_characterController, _characterData.CharacterMovementConfig.Speed);
+            CharacterLocation characterLocation = CreateCharacterLocation(_prefab.transform);
+            
+            movement.Construct(_entity, _characterData.CharacterMovementConfig.Speed);
            
-            horizontalRotatable.Construct(_characterController.transform, 
+            rotatable.Construct(_entity.transform, 
                 _characterData.CharacterMovementConfig.RotateTime);
             
-            characterMovement.Construct(_characterController, horizontalMovement, horizontalRotatable );
+            characterMovement.Construct(movement, rotatable, characterLocation);
 
             return characterMovement;
         }
         
-        private ICharacterInjuring CreateCharacterInjuring()
+        private ICharacterInjuring CreateCharacterInjuring(IHealth health, CharacterType characterType)
         {
             CharacterInjuring characterInjuring = _instantiator.Instantiate<CharacterInjuring>();
 
-            Health health = _instantiator.Instantiate<Health>();
+            DamageNotifier damageNotifier = _prefab.GetComponent<DamageNotifier>();
             
-            CharacterNotifier characterNotifier = _instantiator.Instantiate<CharacterNotifier>();
+            damageNotifier.SetCharacterType(characterType);
             
-            health.Construct(_characterData.CharacterStats.Health, _characterData.CharacterStats.MaxHealth);
-
-            characterInjuring.Construct(health, characterNotifier);
+            characterInjuring.Construct(health, damageNotifier);
 
             return characterInjuring;
         }
+
+        private CharacterLocation CreateCharacterLocation(Transform transform)
+        {
+            CharacterLocation characterLocation = _instantiator.Instantiate<CharacterLocation>();
+            
+            characterLocation.Construct(transform);
+            
+            return characterLocation;
+        }
         
         private ICharacter CreateCharacter(ICharacterMovement characterMovement,
-            ICharacterInjuring characterInjuring)
+            ICharacterInjuring characterInjuring, ICharacterRecovering characterRecovering,
+            ICharacterAbility characterAbility)
         {
             Character character = _instantiator.Instantiate<Character>();
-
-            character.Construct(characterMovement, characterInjuring);
+            
+            character.Construct(characterMovement, characterInjuring, characterRecovering, characterAbility, _prefab);
 
             return character;
         }
 
         private void SetCreateParams(GameObject characterPrefab, CharacterData characterData)
         {
-            _characterController = characterPrefab.GetComponent<CharacterController>();
+            _prefab = characterPrefab;
+            _entity = characterPrefab.GetComponent<Rigidbody>();
             _characterData = characterData;
         }
     }

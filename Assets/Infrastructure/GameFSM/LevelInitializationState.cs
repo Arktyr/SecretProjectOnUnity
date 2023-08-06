@@ -46,9 +46,9 @@ namespace Infrastructure.GameFSM
         {
             ILevelObjectFactory levelObjectFactory = await _levelDataProvider.GetLevelObjectFactory();
 
-            levelObjectFactory.CreateAllObjects();
+            await levelObjectFactory.CreateAllObjects();
             
-            levelObjectFactory.CreateAllUIObjects();
+            await levelObjectFactory.CreateAllUIObjects();
         }
     }
 }

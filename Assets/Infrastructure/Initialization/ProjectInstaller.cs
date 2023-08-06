@@ -4,6 +4,7 @@ using Infrastructure.CodeBase.General.StateMachine;
 using Infrastructure.CodeBase.General.StateMachine.Interfaces;
 using Infrastructure.CodeBase.Services.InputService.Base;
 using Infrastructure.CodeBase.Services.InputService.Mobile;
+using Infrastructure.CodeBase.Services.Overlap;
 using Infrastructure.CodeBase.Services.Update;
 using Infrastructure.GameFSM;
 using Infrastructure.Instatiator;
@@ -19,7 +20,7 @@ namespace Infrastructure.Initialization
 {
     public class ProjectInstaller : MonoInstaller
     {
-        [SerializeField] private SceneData _sceneData;
+        [SerializeField] private LevelData levelData;
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private UIData _uiData;
         [SerializeField] private AllAssetsAddresses _allAssetsAddresses;
@@ -37,6 +38,7 @@ namespace Infrastructure.Initialization
             Container.Bind<ISceneSwitcher>().To<SceneSwitcher>().AsSingle();
             Container.Bind<IInstantiator>().To<Instantiator>().AsSingle();
             Container.Bind<IAddressableLoader>().To<AddressableLoader>().AsSingle();
+            Container.Bind<IOverlapService>().To<OverlapService>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<UpdateService>().AsSingle();
         }
@@ -52,7 +54,7 @@ namespace Infrastructure.Initialization
         private void BindProviders()
         {
             Container.Bind<IStaticDataProvider>().To<StaticDataProvider>().AsSingle()
-                .WithArguments(_playerData, _sceneData, _uiData, _allAssetsAddresses);
+                .WithArguments(_playerData, levelData, _uiData, _allAssetsAddresses);
             
             Container.Bind<ILevelDataProvider>().To<LevelDataProvider>().AsSingle();
             Container.Bind<IPlayerProvider>().To<PlayerProvider>().AsSingle();

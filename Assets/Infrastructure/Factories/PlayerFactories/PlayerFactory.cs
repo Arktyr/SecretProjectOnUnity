@@ -1,8 +1,10 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Infrastructure.Addressable.Loader;
 using Infrastructure.Factories.AbilitiesFactory;
 using Infrastructure.Factories.CharactersFactory;
 using Infrastructure.Gameplay.Persons.AnyCharacter;
+using Infrastructure.Gameplay.Persons.AnyCharacter.Abilities;
 using Infrastructure.Gameplay.Persons.Common.Abilities;
 using Infrastructure.Gameplay.Persons.PlayerControlled;
 using Infrastructure.Gameplay.Persons.PlayerControlled.CameraControl;
@@ -21,8 +23,7 @@ namespace Infrastructure.Factories.PlayerFactories
         
         private readonly IPlayerStateMachineFactory _playerStateMachineFactory;
         private readonly ICharacterFactory _characterFactory;
-        private readonly IAbilityFactory _abilityFactory;
-
+        
         private readonly IPlayerCameraFactory _playerCameraFactory;
 
         private readonly IPlayerProvider _playerProvider;
@@ -32,7 +33,6 @@ namespace Infrastructure.Factories.PlayerFactories
             IAddressableLoader addressableLoader,
             IPlayerCameraFactory playerCameraFactory,
             ICharacterFactory characterFactory,
-            IAbilityFactory abilityFactory,
             IPlayerStateMachineFactory playerStateMachineFactory,
             IPlayerProvider playerProvider)
         {
@@ -41,7 +41,6 @@ namespace Infrastructure.Factories.PlayerFactories
             _addressableLoader = addressableLoader;
             _playerCameraFactory = playerCameraFactory;
             _characterFactory = characterFactory;
-            _abilityFactory = abilityFactory;
             _playerStateMachineFactory = playerStateMachineFactory;
             _playerProvider = playerProvider;
         }
@@ -49,25 +48,23 @@ namespace Infrastructure.Factories.PlayerFactories
         public async UniTask<Player> Create()
         {
             GameObject playerPrefab = await CreatePlayerPrefab();
-
-            PlayerAnimator playerAnimator = CreatePlayerAnimator(playerPrefab);
+            
+            CharacterAnimator characterAnimator = CreatePlayerAnimator(playerPrefab);
             
             PlayerCamera playerCamera =  await _playerCameraFactory.Create(playerPrefab);
             
-            ICharacter character = _characterFactory.Create(playerPrefab, _staticDataProvider.PlayerData.CharacterData);
-
-            IAbility characterTeleport = _abilityFactory.CreateTeleportAbility(character, playerPrefab.transform,
-                _staticDataProvider.SceneData, _staticDataProvider.PlayerData);
+            ICharacter character =
+                _characterFactory.Create(playerPrefab, _staticDataProvider.PlayerData.CharacterData);
             
             IPlayerStateMachine playerStateMachine = 
-                _playerStateMachineFactory.Construct(playerAnimator, character.CharacterMovement);
+                _playerStateMachineFactory.Construct(characterAnimator, character.CharacterMovement);
             
             Player player = _instantiator.Instantiate<Player>();
             
-            player.Construct(character, characterTeleport, playerStateMachine, playerCamera);
+            player.Construct(character, playerStateMachine, playerCamera);
             
             _playerProvider.SetPlayerToProvider(player);
-            _playerProvider.SetPlayerTransformToProvider(playerPrefab.transform);
+            _playerProvider.SetCharacterLocationToProvider(character.CharacterMovement.CharacterLocation);
 
             return player;
         }
@@ -80,15 +77,15 @@ namespace Infrastructure.Factories.PlayerFactories
             return _instantiator.InstantiatePrefab(playerPrefab);;
         }
 
-        private PlayerAnimator CreatePlayerAnimator(GameObject playerPrefab)
+        private CharacterAnimator CreatePlayerAnimator(GameObject playerPrefab)
         {
             Animator animator = playerPrefab.GetComponent<Animator>();
 
-            PlayerAnimator playerAnimator = _instantiator.Instantiate<PlayerAnimator>();
+            CharacterAnimator characterAnimator = _instantiator.Instantiate<CharacterAnimator>();
             
-            playerAnimator.Construct(animator);
+            characterAnimator.Construct(animator);
 
-            return playerAnimator;
+            return characterAnimator;
         }
     }
 }

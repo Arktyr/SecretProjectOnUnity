@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3704f42de24b618de684434b138b41, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  <CharacterData>k__BackingField: {fileID: 11400000, guid: e4c58fa73abd6d84aaa16e7132721ad5, type: 2}
+  <CharacterTeleport>k__BackingField: {fileID: 11400000, guid: f245564f59b67c247b3e7a7c22f7f556, type: 2}
+  <Abilities>k__BackingField: 00000000
