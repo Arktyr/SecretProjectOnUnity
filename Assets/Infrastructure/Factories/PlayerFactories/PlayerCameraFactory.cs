@@ -13,49 +13,60 @@ namespace Infrastructure.Factories.PlayerFactories
         private readonly IInstantiator _instantiator;
         private readonly IStaticDataProvider _staticDataProvider;
         private readonly IAddressableLoader _addressableLoader;
+        private readonly ILevelDataProvider _levelDataProvider;
 
         public PlayerCameraFactory(IInstantiator instantiator, 
             IStaticDataProvider staticDataProvider,
-            IAddressableLoader addressableLoader)
+            IAddressableLoader addressableLoader,
+            ILevelDataProvider levelDataProvider)
         {
             _instantiator = instantiator;
             _staticDataProvider = staticDataProvider;
             _addressableLoader = addressableLoader;
+            _levelDataProvider = levelDataProvider;
         }
 
 
+        public async UniTask WarmUp()
+        {
+            await _addressableLoader.LoadGameObject(_staticDataProvider.AllAssetsAddresses.EmptyObject);
+        }
+
         public async UniTask<PlayerCamera> Create(GameObject playerPrefab)
         {
-            GameObject prefabCamera = await CreatePrefabCamera();
+            GameObject prefabCamera = await _levelDataProvider.GetCamera();
 
             CinemachineVirtualCamera cinemachineCamera =
                 CreateFollowForCinemachineVirtualCamera(prefabCamera, playerPrefab);
             
             PlayerCameraZoom playerCameraZoom = CreatePlayerCameraController(cinemachineCamera);
 
-            PlayerCameraMove playerCameraMove = CreatePlayerCameraMove(cinemachineCamera);
+            PlayerCameraMove playerCameraMove = await CreatePlayerCameraMove(cinemachineCamera);
             
             PlayerCamera playerCamera = CreatePlayerCamera(playerCameraZoom, playerCameraMove, cinemachineCamera);
 
             return playerCamera;
         }
 
-        private PlayerCameraMove CreatePlayerCameraMove(CinemachineVirtualCamera cinemachineVirtualCamera)
+        private async UniTask<PlayerCameraMove>CreatePlayerCameraMove(CinemachineVirtualCamera cinemachineVirtualCamera)
         {
             PlayerCameraMove playerCameraMove = _instantiator.Instantiate<PlayerCameraMove>();
-            playerCameraMove.Construct(cinemachineVirtualCamera);
+            
+            GameObject emptyObject = await CreateEmptyObject();
+            
+            playerCameraMove.Construct(cinemachineVirtualCamera, emptyObject);
 
             return playerCameraMove;
         }
 
-        private async UniTask<GameObject> CreatePrefabCamera()
+        private async UniTask<GameObject> CreateEmptyObject()
         {
-            GameObject prefabCamera = await _addressableLoader.LoadGameObject(_staticDataProvider.AllAssetsAddresses
-                .PlayerAssetsAddresses.CameraAssetsAddresses.Camera);
-            
-            return _instantiator.InstantiatePrefab(prefabCamera);
-        }
+            GameObject emptyObjectPrefab = await
+                _addressableLoader.LoadGameObject(_staticDataProvider.AllAssetsAddresses.EmptyObject);
 
+            return _instantiator.InstantiatePrefab(emptyObjectPrefab);
+        }
+        
         private CinemachineVirtualCamera CreateFollowForCinemachineVirtualCamera
             (GameObject prefabCamera, GameObject playerPrefab)
         {

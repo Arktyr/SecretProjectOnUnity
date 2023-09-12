@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Infrastructure.Gameplay.Persons.Common.Abilities;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Infrastructure.Gameplay.Persons.AnyCharacter.Abilities
 {
@@ -26,14 +27,12 @@ namespace Infrastructure.Gameplay.Persons.AnyCharacter.Abilities
         
         private async void Teleportation()
         {
-            Vector2 characterDirection = _characterMovement.CharacterLocation.Direction();
-
-            Vector3 currentCharacterDirection = new Vector3(characterDirection.x, 0, characterDirection.y);
-
-            currentCharacterDirection *= _teleportDistance;
+            Vector3 characterDirection = _characterMovement.CharacterLocation.Direction();
             
-            _teleport.TeleportationForward(currentCharacterDirection);
-
+            characterDirection *= _teleportDistance;
+            
+            _teleport.TeleportationForward(characterDirection);
+            
             await _cooldown.StartCooldown();
         }
         

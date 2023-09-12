@@ -5,9 +5,13 @@
         public bool IsUsesMovementInput { get; private set; }
         
         public bool IsUsesCameraInput { get; private set; }
-        
-        public void SetIsUsesMovementInput(bool value) => IsUsesMovementInput = value;
 
-        public void SetIsUsesCameraInput(bool value) => IsUsesCameraInput = value;
+        public void SetEnableIsUsesMovementInput() => IsUsesMovementInput = true;
+        
+        public void SetDisableIsUsesMovementInput() => IsUsesMovementInput = false;
+
+        public void SetEnableIsUsesCameraInput() => IsUsesCameraInput = true;
+        
+        public void SetDisableIsUsesCameraInput() => IsUsesCameraInput = false;
     }
 }

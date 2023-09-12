@@ -1,3 +1,4 @@
+using Infrastructure.CodeBase.Services.UnSubscribe;
 using UnityEngine;
 
 namespace Infrastructure.Gameplay.Persons.AnyCharacter
@@ -13,5 +14,7 @@ namespace Infrastructure.Gameplay.Persons.AnyCharacter
         public ICharacterAbility CharacterAbility { get;}
         
         public GameObject CharacterPrefab { get; }
+        
+        public IDisposableService DisposableService { get; }
     }
 }

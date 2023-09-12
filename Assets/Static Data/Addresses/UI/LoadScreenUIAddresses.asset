@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c30d07f308c408585f4be93af02f142, type: 3}
+  m_Name: LoadScreenUIAddresses
+  m_EditorClassIdentifier: 
+  <LoadScreenWindow>k__BackingField:
+    m_AssetGUID: 7a3a68250c6596a45b66dc2d243faa1a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <LoadingFiller>k__BackingField:
+    m_AssetGUID: db7b024d4de2f6440ab1de8638dc7a63
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

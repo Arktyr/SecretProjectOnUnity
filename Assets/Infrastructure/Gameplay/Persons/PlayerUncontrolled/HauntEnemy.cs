@@ -19,7 +19,7 @@ namespace Infrastructure.Gameplay.Persons.PlayerUncontrolled
         {
             _enemy = enemy;
 
-            _enemy.Updated += Controlling;
+            SubscribeToEvents();
         }
         
         private void Controlling()
@@ -42,9 +42,18 @@ namespace Infrastructure.Gameplay.Persons.PlayerUncontrolled
             _enemy.Character.CharacterMovement.Rotate(distance);
         }
 
-        public void Dispose()
+        private void SubscribeToEvents()
+        {
+            _enemy.Character.DisposableService.OnDisposable += Dispose;
+            _enemy.Updated += Controlling;
+        }
+
+        private void UnSubscribeToEvents()
         {
             _enemy.Updated -= Controlling;
+            _enemy.Character.DisposableService.OnDisposable -= Dispose;
         }
+        
+        public void Dispose() => UnSubscribeToEvents();
     }
 }

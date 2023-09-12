@@ -26,7 +26,7 @@ namespace Infrastructure.CodeBase.General.StateMachine
                 Debug.LogError($"{typeof(TState)}, Not Found");
         }
 
-        public void Enter<TState, TArgs>(TArgs args) where TState : class, IStateWithArgument
+        public void Enter<TState, TArgs>(TArgs args) where TState : IStateWithArgument<TArgs>
         {
             _activeState?.Exit();
 

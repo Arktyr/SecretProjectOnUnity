@@ -11,7 +11,6 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine
         private readonly Dictionary<Type, IExitableState> _states = new();
         
         public PlayerStateType CurrentState { get; private set; }
-        public PlayerStateType PastState { get; private set; }
         
         private IExitableState _activeState;
         
@@ -20,8 +19,7 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine
             if (_states[typeof(TState)] is TState state)
             {
                 _activeState?.Exit();
-                    
-                SetLastState();
+                
                 SetActiveState(state);
                 SetCurrentState(state);
                 
@@ -48,7 +46,5 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine
         }
 
         private void SetActiveState<TState>(TState state) where TState : IExitableState => _activeState = state;
-
-        private void SetLastState() => PastState = CurrentState;
     }
 }

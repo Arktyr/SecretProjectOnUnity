@@ -1,6 +1,7 @@
 ﻿using Infrastructure.CodeBase.Services.InputService.Base;
 using Infrastructure.CodeBase.Services.Update;
 using Infrastructure.Instatiator;
+using Infrastructure.Providers;
 
 namespace Infrastructure.CodeBase.Services.InputService.Mobile
 {
@@ -13,19 +14,22 @@ namespace Infrastructure.CodeBase.Services.InputService.Mobile
 
         private readonly IInputWatcher _inputWatcher;
         private readonly IUpdaterService _updaterService;
+        private readonly IUIProvider _uiProvider;
         
         public InputService(IUpdaterService updaterService,
-            IInputWatcher inputWatcher)
+            IInputWatcher inputWatcher,
+            IUIProvider uiProvider)
         {
             _inputWatcher = inputWatcher;
             _updaterService = updaterService;
+            _uiProvider = uiProvider;
         }
         
         public void Init()
         {
             PlayerInput = new PlayerInput();
             
-            PlayerMovementInput = new PlayerMovementInput(_updaterService, _inputWatcher);
+            PlayerMovementInput = new PlayerMovementInput(_updaterService, _inputWatcher, _uiProvider);
 
             PlayerCameraZoomInput = new PlayerCameraZoomInput(_updaterService, _inputWatcher, PlayerInput);
             

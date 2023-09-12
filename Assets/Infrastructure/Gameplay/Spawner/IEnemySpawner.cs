@@ -1,6 +1,8 @@
-﻿namespace Infrastructure.Gameplay.Spawner
+﻿using Zenject;
+
+namespace Infrastructure.Gameplay.Spawner
 {
-    public interface IEnemySpawner
+    public interface IEnemySpawner : IInitializable
     {
         public void StartSpawnEnemies();
 

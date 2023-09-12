@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Infrastructure.Gameplay.Persons.AnyCharacter
+namespace Infrastructure.Gameplay.Persons.AnyCharacter.Movement
 {
     public struct CharacterLocation
     {

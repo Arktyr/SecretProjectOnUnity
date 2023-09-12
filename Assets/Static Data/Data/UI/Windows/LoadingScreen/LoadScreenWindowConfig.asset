@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f7837cc833408a9f62f9da57251294, type: 3}
+  m_Name: LoadScreenWindowConfig
+  m_EditorClassIdentifier: 
+  <AnimationConfigIn>k__BackingField: {fileID: 0}
+  <AnimationConfigOut>k__BackingField: {fileID: 0}
+  <FadeAnimationConfigIn>k__BackingField: {fileID: 11400000, guid: cc4a5d22439681349be9da09a564bb62, type: 2}
+  <FadeAnimationConfigOut>k__BackingField: {fileID: 11400000, guid: 63d45bbe838433f46af2dd98bcc8367d, type: 2}

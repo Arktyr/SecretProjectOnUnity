@@ -16,5 +16,7 @@ namespace Infrastructure.Addressable.AssetsAddresses
         [field: SerializeField] public AllUIAssetsAddresses AllUIAssetsAddresses { get; private set; }
         
         [field: SerializeField] public AssetReferenceGameObject ColliderWatcher { get; private set; }
+        
+        [field: SerializeField] public AssetReferenceGameObject EmptyObject { get; private set; }
     }
 }

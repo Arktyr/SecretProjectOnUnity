@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -21,8 +21,9 @@ namespace Infrastructure.Addressable.Loader
             if (_cachedAssets.ContainsKey(assetID))
                 return (GameObject)_cachedAssets[assetID].Result;
 
-            var assetHandle = Addressables.LoadAssetAsync<GameObject>(assetReferenceGameObject);
-            await assetHandle;
+            AsyncOperationHandle<GameObject> assetHandle = 
+                Addressables.LoadAssetAsync<GameObject>(assetReferenceGameObject);
+            await assetHandle.Task;
             
             _cachedAssets.Add(assetID, assetHandle);
             
@@ -42,7 +43,7 @@ namespace Infrastructure.Addressable.Loader
 
         public void ClearCache()
         {
-            foreach (var asyncHandle in _cachedAssets) 
+            foreach (AsyncOperationHandle asyncHandle in _cachedAssets.Select(idHandlePair => idHandlePair.Value)) 
                 Addressables.Release(asyncHandle);
             
             _cachedAssets.Clear();

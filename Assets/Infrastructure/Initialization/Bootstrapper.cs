@@ -13,18 +13,17 @@ namespace Infrastructure.Initialization
         public void Construct(IStateMachine stateMachine,
             BootstrapState bootstrapState, 
             LevelInitializationState levelInitializationState,
-            LevelState levelState)
+            LevelState levelState,
+            MainMenuState mainMenuState)
         {
             _stateMachine = stateMachine;
             
             stateMachine.AddState(bootstrapState);
             stateMachine.AddState(levelInitializationState);
             stateMachine.AddState(levelState);
+            stateMachine.AddState(mainMenuState);
         }
 
-        public void Initialize()
-        {
-            _stateMachine.Enter<BootstrapState>();
-        }
+        public void Initialize() => _stateMachine.Enter<BootstrapState>();
     }
 }

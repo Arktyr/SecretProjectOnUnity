@@ -5,6 +5,7 @@ namespace Infrastructure.Factories.PlayerFactories
 {
     public interface IPlayerFactory
     {
+        UniTask WarmUp();
         UniTask<Player> Create();
     }
 }

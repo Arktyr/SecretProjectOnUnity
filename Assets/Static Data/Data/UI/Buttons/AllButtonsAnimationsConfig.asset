@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030ac018b49f4f3bb3a249e44cbeaa9f, type: 3}
+  m_Name: AllButtonsAnimationsConfig
+  m_EditorClassIdentifier: 
+  <MainMenuButtonsAnimationConfig>k__BackingField: {fileID: 11400000, guid: 9a8937a70d978ff4d99affe1ba2fd600, type: 2}
+  <PauseMenuButtonsAnimationConfig>k__BackingField: {fileID: 11400000, guid: 3d7df097f99ded045a42bbad5c57c30a, type: 2}

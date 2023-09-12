@@ -1,6 +1,5 @@
-﻿using Infrastructure.Gameplay;
+﻿using Cysharp.Threading.Tasks;
 using Infrastructure.Gameplay.Persons.AnyCharacter;
-using Infrastructure.Gameplay.Persons.AnyCharacter.Abilities;
 using Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine;
 using Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine.States;
 
@@ -24,7 +23,6 @@ namespace Infrastructure.Factories.PlayerFactories
 
         public IPlayerStateMachine Construct(CharacterAnimator characterAnimator,
             ICharacterMovement characterMovement)
-
         {
             _runState.Construct(_playerStateMachine, characterMovement, characterAnimator);
             _playerStateMachine.AddState(_runState);

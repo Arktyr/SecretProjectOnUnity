@@ -16,7 +16,9 @@ namespace Infrastructure.CodeBase.Services.InputService.Mobile
 
         private Vector2 _lastDirection;
 
-        public PlayerCameraMoveInput(PlayerInput playerInput, IUpdaterService updaterService, IInputWatcher inputWatcher)
+        public PlayerCameraMoveInput(PlayerInput playerInput,
+            IUpdaterService updaterService, 
+            IInputWatcher inputWatcher)
         {
             _playerInput = playerInput;
             _updaterService = updaterService;
@@ -28,18 +30,18 @@ namespace Infrastructure.CodeBase.Services.InputService.Mobile
 
         private void MoveEnd()
         {
-            _updaterService.FixedUpdate -= Move;
+            _updaterService.Update -= Move;
             InputCameraMoveEnded?.Invoke();
         }
 
-        private void MoveStart() => _updaterService.FixedUpdate += Move;
+        private void MoveStart() => _updaterService.Update += Move;
 
         private void Move(float time)
         {
             if (_inputWatcher.IsUsesMovementInput == false && _inputWatcher.IsUsesCameraInput == false)
             {
                 Vector2 distance = _playerInput.Camera.PrimaryFingerPosition.ReadValue<Vector2>();
-
+                
                 InputCameraMoveHappened?.Invoke(distance);
             }
             else

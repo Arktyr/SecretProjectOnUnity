@@ -8,7 +8,7 @@ namespace Infrastructure.Gameplay.Persons.AnyCharacter
         public IDamageNotifier DamageNotifier { get; private set; }
         
         public IHealth Health { get; private set; }
-        
+
         public void Construct(IHealth health,
             IDamageNotifier damageNotifier)
         {
@@ -32,9 +32,6 @@ namespace Infrastructure.Gameplay.Persons.AnyCharacter
             Health.Died -= Dispose;
         }
         
-        public void Dispose()
-        {
-            UnSubscribeFromEvents();
-        }
+        public void Dispose() => UnSubscribeFromEvents();
     }
 }

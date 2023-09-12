@@ -16,7 +16,7 @@ namespace Infrastructure.Gameplay.Spawner
 
         private readonly IEnemyFactory _enemyFactory;
         private readonly IStaticDataProvider _staticDataProvider;
-
+        
         public EnemyPool(IEnemyFactory enemyFactory,
             IStaticDataProvider staticDataProvider)
         {
@@ -31,7 +31,9 @@ namespace Infrastructure.Gameplay.Spawner
                 if (enemy.EnemyType == enemyType)
                 {
                     _enemies.Remove(enemy);
+                    
                     _activeEnemies.Add(enemy);
+                    
                     enemy.Died += ReturnToPool;
                     enemy.Character.CharacterPrefab.SetActive(true);
                     return enemy;
@@ -100,6 +102,21 @@ namespace Infrastructure.Gameplay.Spawner
             int random = Random.Range(0, enemyConfigs.Length);
             
             return enemyConfigs[random];
+        }
+
+        public void ClearPool()
+        {
+            if (_activeEnemies.Count > 0)
+            {
+                foreach (var enemy in _activeEnemies)
+                {
+                    enemy.Died -= ReturnToPool;
+                    enemy.Dispose();
+                }
+            }
+
+            _enemies.Clear();
+            _activeEnemies.Clear();
         }
     }
 }

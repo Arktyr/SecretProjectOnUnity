@@ -29,11 +29,7 @@ namespace Infrastructure.Gameplay.Persons.PlayerUncontrolled
 
         private void Update(float time) => Updated?.Invoke();
 
-        private void Die()
-        {
-            UnSubscribeFromEvents();
-            Died?.Invoke(this);
-        }
+        private void Die() => Dispose();
 
         public void SubscribeToEvents()
         {
@@ -46,6 +42,12 @@ namespace Infrastructure.Gameplay.Persons.PlayerUncontrolled
         {
             Character.CharacterInjuring.Health.Died -= Die;
             _updaterService.FixedUpdate -= Update;
+        }
+
+        public void Dispose()
+        {
+            UnSubscribeFromEvents();
+            Died?.Invoke(this);
         }
     }
 }

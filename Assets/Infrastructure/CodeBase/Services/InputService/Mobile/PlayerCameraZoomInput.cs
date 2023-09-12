@@ -32,29 +32,35 @@ namespace Infrastructure.CodeBase.Services.InputService.Mobile
 
         private void ZoomEnd()
         {
-            _inputWatcher.SetIsUsesCameraInput(false);
-            _updaterService.FixedUpdate -= Zoom;
+            _inputWatcher.SetDisableIsUsesCameraInput();
+            _updaterService.Update -= Zoom;
         }
 
         private void ZoomStart()
         {
-            if (_inputWatcher.IsUsesMovementInput == false) _updaterService.FixedUpdate += Zoom;
+            _updaterService.Update += Zoom;
         }
 
         private void Zoom(float time)
         {
-            _inputWatcher.SetIsUsesCameraInput(true);
+            if (_inputWatcher.IsUsesMovementInput == false)
+            {
+                _inputWatcher.SetEnableIsUsesCameraInput();
             
-            float distance = Vector2.Distance(_playerInput.Camera.PrimaryFingerPosition.ReadValue<Vector2>(),
-                _playerInput.Camera.SecondaryFingerPostion.ReadValue<Vector2>());
+                float distance = Vector2.Distance(_playerInput.Camera.PrimaryFingerPosition.ReadValue<Vector2>(),
+                    _playerInput.Camera.SecondaryFingerPostion.ReadValue<Vector2>());
             
-            if (distance > _previousDistance) 
-                InputZoomHappened?.Invoke(ZoomUp);
+                if (distance > _previousDistance) 
+                    InputZoomHappened?.Invoke(ZoomUp);
             
-            else if (distance < _previousDistance) 
-                InputZoomHappened?.Invoke(ZoomDown);
+                else if (distance < _previousDistance) 
+                    InputZoomHappened?.Invoke(ZoomDown);
 
-            _previousDistance = distance;
+                _previousDistance = distance;
+                
+            }
+            else
+                ZoomEnd();
         }
     }
 }

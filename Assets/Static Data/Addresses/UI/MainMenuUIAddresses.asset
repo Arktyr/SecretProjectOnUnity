@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a31f16f25f94bf5b9b398e9194b91cc, type: 3}
+  m_Name: MainMenuUIAddresses
+  m_EditorClassIdentifier: 
+  <MainMenuWindow>k__BackingField:
+    m_AssetGUID: b51150f027ed86647a01b4d93cceb4af
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <PlayButton>k__BackingField:
+    m_AssetGUID: 6114b39804ec4af4e887e095d5d182dd
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <SettingsButton>k__BackingField:
+    m_AssetGUID: e5256ae6b8570844289ebdc7a08aeb3d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  <QuitButton>k__BackingField:
+    m_AssetGUID: b93b18a6d1882564199f548973ec0e49
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

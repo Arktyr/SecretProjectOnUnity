@@ -6,6 +6,7 @@ namespace Infrastructure.Factories.PlayerFactories
 {
     public interface IPlayerCameraFactory
     {
+        UniTask WarmUp();
         UniTask<PlayerCamera> Create(GameObject playerPrefab);
     }
 }

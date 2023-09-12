@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <InputAssetsAddresses>k__BackingField: {fileID: 11400000, guid: 4e5fc48fb73dae146941fd9345ec28f0, type: 2}
   <CommonUIAddresses>k__BackingField: {fileID: 11400000, guid: 05d912a69feb72d4d9920336add68ba6, type: 2}
+  <GameplayUIAddresses>k__BackingField: {fileID: 11400000, guid: f194dc565f77f9147887df8f4262cc1c, type: 2}
+  <MainMenuUIAddresses>k__BackingField: {fileID: 11400000, guid: 31608141d69e1854ca6316794bf45f80, type: 2}
+  <PauseMenuUIAddresses>k__BackingField: {fileID: 11400000, guid: 284e2c90d4af7aa4e86d597e3e3faf73, type: 2}
+  <LoadScreenUIAddresses>k__BackingField: {fileID: 11400000, guid: 6b06387115ece154fb7227b5156f417c, type: 2}

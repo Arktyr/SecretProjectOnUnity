@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb478db5e3c4f07a704260a443bc021, type: 3}
+  m_Name: EnemySpawnerConfig
+  m_EditorClassIdentifier: 
+  <SpawnRadius>k__BackingField: 24
+  <MinimumDistanceFromPlayer>k__BackingField: 5
+  <DelayBeforeSpawn>k__BackingField: 1
+  <CommonEnemiesSpawnInfo>k__BackingField: {fileID: 11400000, guid: 551a391492e1470458d18e6ad333d70d, type: 2}
+  <UncommonEnemiesSpawnInfo>k__BackingField: {fileID: 11400000, guid: 9fe4f244c545ab845bb699c539fdba89, type: 2}
+  <RareEnemiesSpawnInfo>k__BackingField: {fileID: 11400000, guid: 515d7c4c64570aa40a859c66e4fd7e82, type: 2}
+  <UniqueEnemiesSpawnInfo>k__BackingField: {fileID: 11400000, guid: 08fd163e6673c4a448dc637f71bb9d33, type: 2}

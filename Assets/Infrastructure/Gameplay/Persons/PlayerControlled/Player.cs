@@ -6,6 +6,7 @@ using Infrastructure.Gameplay.Persons.AnyCharacter.Abilities;
 using Infrastructure.Gameplay.Persons.PlayerControlled.CameraControl;
 using Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine;
 using Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine.States;
+using UnityEngine;
 using IPlayerStateMachine = Infrastructure.Gameplay.Persons.PlayerControlled.StateMachine.IPlayerStateMachine;
 
 namespace Infrastructure.Gameplay.Persons.PlayerControlled
@@ -19,9 +20,12 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled
         
         private PlayerCamera _playerCamera;
 
-        private IUpdaterService _updaterService;
+        private readonly IUpdaterService _updaterService;
+        
+        public ICharacter Character => _character;
 
-        public Player(IInputService inputService, IUpdaterService updaterService)
+        public Player(IInputService inputService, 
+            IUpdaterService updaterService)
         {
             _inputService = inputService;
             _updaterService = updaterService;
@@ -40,20 +44,22 @@ namespace Infrastructure.Gameplay.Persons.PlayerControlled
 
         private void SubscribeToEventsInServices()
         {
+            _character.DisposableService.OnDisposable += Dispose;
             _character.CharacterInjuring.Health.Died += Dispose;
             _inputService.PlayerMovementInput.InputHappened += SetRunPlayerState;
             _inputService.PlayerInput.Ability.Teleport.performed +=
                 context => _character.CharacterAbility.TryUseSingleAbility<CharacterTeleportForward>();
 
-            _updaterService.FixedUpdate += Attack;
+            _updaterService.Update += Attack;
         }
 
         private void UnSubscribeToEventsInServices()
         {
+            _character.DisposableService.OnDisposable -= Dispose;
             _character.CharacterInjuring.Health.Died -= Dispose;
             _inputService.PlayerMovementInput.InputHappened -= SetRunPlayerState;
           
-            _updaterService.FixedUpdate -= Attack;
+            _updaterService.Update -= Attack;
         }
 
         private void Attack(float time) => _character.CharacterAbility.TryUseAllAbilitiesByType(AbilityType.Attack);

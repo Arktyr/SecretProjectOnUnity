@@ -1,4 +1,5 @@
-﻿using Infrastructure.Gameplay.Persons.Common.Movement;
+﻿using Infrastructure.Gameplay.Persons.AnyCharacter.Movement;
+using Infrastructure.Gameplay.Persons.Common.Movement;
 using UnityEngine;
 
 namespace Infrastructure.Gameplay.Persons.AnyCharacter

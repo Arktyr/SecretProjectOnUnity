@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82366da1682f44c489578515d7fc69d7, type: 3}
+  m_Name: PauseMenuUIAddresses
+  m_EditorClassIdentifier: 
+  <PauseWindow>k__BackingField:
+    m_AssetGUID: cc78205f2599e214296932bf25d71bcc
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <PauseButton>k__BackingField:
+    m_AssetGUID: 75737f3691b361346ac4b8a929c87d07
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <ResumeButton>k__BackingField:
+    m_AssetGUID: 668d089473441e44d8c064554b50de37
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <SettingsButton>k__BackingField:
+    m_AssetGUID: f6300b273cba00745833a3c708a53c16
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <ReturnToMainMenuButton>k__BackingField:
+    m_AssetGUID: 3560590edeeb68f469d75030c3484f22
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1

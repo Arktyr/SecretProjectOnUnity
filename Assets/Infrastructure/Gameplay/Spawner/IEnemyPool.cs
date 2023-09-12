@@ -6,5 +6,7 @@ namespace Infrastructure.Gameplay.Spawner
     public interface IEnemyPool
     {
         public UniTask<IEnemy> Take(EnemyType enemyType);
+
+        public void ClearPool();
     }
 }

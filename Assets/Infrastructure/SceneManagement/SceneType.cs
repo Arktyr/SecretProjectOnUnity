@@ -4,5 +4,6 @@
     {
         Bootstrap = 0,
         LevelScene = 1,
+        MainMenu = 2
     }
 }

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd14cb94c434cb6893737939dba9342, type: 3}
+  m_Name: GameplayUIAddresses
+  m_EditorClassIdentifier: 
+  <PlayTimer>k__BackingField:
+    m_AssetGUID: 4fc7044a4edd7ef4f8ea4afb9955a94d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <HealthBar>k__BackingField:
+    m_AssetGUID: 66b99e98a28530d43ad756267cfb9204
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <HealthBarFiller>k__BackingField:
+    m_AssetGUID: 63822a1555ac58540843e41d2266a913
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  <FPSCounter>k__BackingField:
+    m_AssetGUID: 767ca8caa09d99944970be8d8487e362
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

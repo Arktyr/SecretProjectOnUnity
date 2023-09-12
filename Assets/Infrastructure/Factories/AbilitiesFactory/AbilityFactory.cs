@@ -98,7 +98,7 @@ namespace Infrastructure.Factories.AbilitiesFactory
 
             CharacterAOEAttack characterAoeAttack = _instantiator.Instantiate<CharacterAOEAttack>();
             
-            characterAoeAttack.Construct(5, cooldown, attackColliders);
+            characterAoeAttack.Construct(1, cooldown, attackColliders);
             
             return characterAoeAttack;
         }

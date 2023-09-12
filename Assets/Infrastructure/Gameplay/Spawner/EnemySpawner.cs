@@ -2,7 +2,10 @@
 using Infrastructure.CodeBase.Services.Update;
 using Infrastructure.Gameplay.Persons.Common.Abilities;
 using Infrastructure.Gameplay.Persons.PlayerUncontrolled;
+using Infrastructure.Gameplay.Timer;
 using Infrastructure.Providers;
+using Infrastructure.Providers.Spawner;
+using Infrastructure.Static_Data.Configs.Spawner;
 using UnityEngine;
 
 namespace Infrastructure.Gameplay.Spawner
@@ -10,27 +13,47 @@ namespace Infrastructure.Gameplay.Spawner
     public class EnemySpawner : IEnemySpawner
     {
         private readonly IEnemyPool _enemyPool;
-
-        private readonly IStaticDataProvider _staticDataProvider;
+        
+        private readonly EnemySpawnerConfig _enemySpawnerConfig;
+        
         private readonly IUpdaterService _updaterService;
         private readonly ICooldown _cooldown;
+        private readonly IPlayTimer _playTimer;
+
+        private readonly IPlayerProvider _playerProvider;
+
+        private readonly IEnemySpawnerProvider _enemySpawnerProvider;
+        
+        private const float OnGround = 1;
 
         public EnemySpawner(IEnemyPool enemyPool,
             IStaticDataProvider staticDataProvider,
-            IUpdaterService updaterService)
+            IUpdaterService updaterService,
+            IPlayerProvider playerProvider,
+            IPlayTimer playTimer,
+            IEnemySpawnerProvider enemySpawnerProvider)
         {
-            _staticDataProvider = staticDataProvider;
+            _enemySpawnerConfig = staticDataProvider.LevelData.EnemySpawnerConfig;
             _enemyPool = enemyPool;
             _updaterService = updaterService;
+            _playerProvider = playerProvider;
+            _playTimer = playTimer;
+            _enemySpawnerProvider = enemySpawnerProvider;
 
             Cooldown cooldown = new Cooldown();
-            cooldown.Construct(_staticDataProvider.LevelData.EnemySpawnerConfig.DelayBeforeSpawn);
+            cooldown.Construct(_enemySpawnerConfig.DelayBeforeSpawn);
             _cooldown = cooldown;
         }
 
-        public void StartSpawnEnemies() => _updaterService.FixedUpdate += Update;
+        public void StartSpawnEnemies()
+        {
+            _updaterService.Update += Update;
+        }
 
-        public void StopSpawnEnemies() => _updaterService.FixedUpdate -= Update;
+        public void StopSpawnEnemies()
+        {
+            _updaterService.Update -= Update;
+        }
 
         private async void Update(float time)
         {
@@ -41,41 +64,53 @@ namespace Infrastructure.Gameplay.Spawner
         {
             await _cooldown.StartCooldown();
             
-            if (TryToSpawn(_staticDataProvider.LevelData.EnemySpawnerConfig.ChanceToSpawnUncommonEnemies))
+            if (TryToSpawn(_enemySpawnerConfig.UncommonEnemiesSpawnInfo))
                 await SpawnEnemy(EnemyType.UncommonEnemy);
-
-            if (TryToSpawn(_staticDataProvider.LevelData.EnemySpawnerConfig.ChanceToSpawnRareEnemies))
+            
+            if (TryToSpawn(_enemySpawnerConfig.RareEnemiesSpawnInfo))
                 await SpawnEnemy(EnemyType.RareEnemy);
 
-            if (TryToSpawn(_staticDataProvider.LevelData.EnemySpawnerConfig.ChanceToSpawnUniqueEnemies))
+            if (TryToSpawn(_enemySpawnerConfig.UniqueEnemiesSpawnInfo))
                 await SpawnEnemy(EnemyType.UniqueEnemy);
             
-            await SpawnEnemy(EnemyType.CommonEnemy);
+            if (TryToSpawn(_enemySpawnerConfig.CommonEnemiesSpawnInfo))
+                await SpawnEnemy(EnemyType.CommonEnemy);
         }
-
-        private bool TryToSpawn(int chance)
+        
+        private bool TryToSpawn(EnemySpawnInfo enemySpawnInfo)
         {
             float random = Random.Range(0, 101);
             
-            return chance >= random;
+            return enemySpawnInfo.ChanceToSpawnEnemy >= random &&
+                   _playTimer.TotalTimeInSeconds > enemySpawnInfo.TimeBeforeSpawnEnemy;
         }
 
         private async UniTask SpawnEnemy(EnemyType enemyType)
         {
             IEnemy enemy = await _enemyPool.Take(enemyType);
             
-            enemy.SubscribeToEvents();
             enemy.Character.CharacterInjuring.Health.Heal(float.MaxValue);
-
-            enemy.Character.CharacterPrefab.transform.position = GetRandomPositionToSpawn();
+            enemy.SubscribeToEvents();
+            
+            enemy.Character.CharacterPrefab.transform.position = await GetRandomPositionToSpawn();
         }
 
-        private Vector3 GetRandomPositionToSpawn()
+        private async UniTask<Vector3> GetRandomPositionToSpawn()
         {
-           Vector2 randomPosition = 
-               Random.insideUnitCircle * _staticDataProvider.LevelData.EnemySpawnerConfig.SpawnRadius;
+            float spawnRadius = _enemySpawnerConfig.SpawnRadius;
+            
+            float minimumDistanceFromPlayer = _enemySpawnerConfig.MinimumDistanceFromPlayer;
+            
+            Vector2 randomPosition = Random.insideUnitCircle * spawnRadius;
 
-           return new Vector3(randomPosition.x, 1, randomPosition.y);
+            float distance = -(_playerProvider.CharacterLocation.CurrentPosition().magnitude - randomPosition.magnitude);
+            
+            if (Mathf.Abs(distance) >= Mathf.Abs(minimumDistanceFromPlayer))
+               return new Vector3(randomPosition.x, OnGround, randomPosition.y);
+
+            return await GetRandomPositionToSpawn();
         }
+
+        public void Initialize() => _enemySpawnerProvider.SetEnemySpawnerToProvider(this);
     }
 }

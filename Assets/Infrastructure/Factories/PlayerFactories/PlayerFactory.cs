@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Infrastructure.Addressable.Loader;
-using Infrastructure.Factories.AbilitiesFactory;
 using Infrastructure.Factories.CharactersFactory;
 using Infrastructure.Gameplay.Persons.AnyCharacter;
-using Infrastructure.Gameplay.Persons.AnyCharacter.Abilities;
-using Infrastructure.Gameplay.Persons.Common.Abilities;
 using Infrastructure.Gameplay.Persons.PlayerControlled;
 using Infrastructure.Gameplay.Persons.PlayerControlled.CameraControl;
 using Infrastructure.Providers;
@@ -27,7 +23,7 @@ namespace Infrastructure.Factories.PlayerFactories
         private readonly IPlayerCameraFactory _playerCameraFactory;
 
         private readonly IPlayerProvider _playerProvider;
-        
+
         public PlayerFactory(IStaticDataProvider staticDataProvider,
             IInstantiator instantiator,
             IAddressableLoader addressableLoader,
@@ -44,7 +40,15 @@ namespace Infrastructure.Factories.PlayerFactories
             _playerStateMachineFactory = playerStateMachineFactory;
             _playerProvider = playerProvider;
         }
-        
+
+        public async UniTask WarmUp()
+        {
+            await _addressableLoader.LoadGameObject(_staticDataProvider.AllAssetsAddresses
+                .AllCharacterAddresses.AllPlayableCharactersAddresses.CommonCharacter);
+
+            await _playerCameraFactory.WarmUp();
+        }
+
         public async UniTask<Player> Create()
         {
             GameObject playerPrefab = await CreatePlayerPrefab();
@@ -58,7 +62,7 @@ namespace Infrastructure.Factories.PlayerFactories
             
             IPlayerStateMachine playerStateMachine = 
                 _playerStateMachineFactory.Construct(characterAnimator, character.CharacterMovement);
-            
+
             Player player = _instantiator.Instantiate<Player>();
             
             player.Construct(character, playerStateMachine, playerCamera);
